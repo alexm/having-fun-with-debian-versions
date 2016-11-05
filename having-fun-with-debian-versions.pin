@@ -19,19 +19,19 @@
 --
 <b>Biggest DEB version? No.</b>
 
-$ ls -1 *.deb | tail -1
+$ ls -1 foo_*.deb | tail -1
 foo_1.13.08_amd64.deb
 
 --
 <b>Biggest DEB version? No.</b>
 
-$ ls -1 *.deb | head -1
+$ ls -1 foo_*.deb | head -1
 foo_1.13.08-2_amd64.deb
 
 --
 <b>Why?</b>
 
-$ ls -1 *.deb
+$ ls -1 foo_*.deb
 foo_1.13.08-2_amd64.deb
 foo_1.13.08-3_amd64.deb
 foo_1.13.08_amd64.deb
@@ -39,7 +39,7 @@ foo_1.13.08_amd64.deb
 --
 <b>Seriously, why?</b>
 
-$ ls -1 *.deb | sort
+$ ls -1 foo_*.deb | sort
 foo_1.13.08-2_amd64.deb
 foo_1.13.08-3_amd64.deb
 foo_1.13.08_amd64.deb
@@ -47,7 +47,7 @@ foo_1.13.08_amd64.deb
 --
 <b>Get rid of that suffix and... Yes!</b>
 
-$ ls -1 *.deb | sed -e 's,_[a-z0-9]*\.deb,,' | sort
+$ ls -1 foo_*.deb | sed -e 's,_[a-z0-9]*\.deb,,' | sort
 foo_1.13.08
 foo_1.13.08-2
 foo_1.13.08-3
@@ -76,7 +76,7 @@ $ perl -E '
 say +(
     sort { $b cmp $a }
     map  { s/_[a-z0-9]+\.deb$//; $_ }
-         <*.deb>
+         <foo_*.deb>
 )[0]
 '
 foo_1.13.08-3
@@ -101,7 +101,7 @@ $ perl -E '
 my $p = (
    sort { $b->[0] cmp $a->[0] }
    map  { s/(_[a-z0-9]+\.deb)$//; [$_,$1] }
-        <*.deb>
+        <foo_*.deb>
 )[0];
 say @$p
 '
