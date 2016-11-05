@@ -1,0 +1,120 @@
+#!/usr/bin/pinpoint -s
+
+[font=Monospace]
+[transition=text-slide-up]
+[duration=60]
+
+#[white]
+[text-color=white]
+[shading-opacity=1.0]
+[text-align=left]
+
+-- [text-align=center]
+<b>Having fun with Debian versions</b>
+
+<big>Barcelona Perl Workshop 2016</big>
+
+<i><small>Alex Muntada</small></i>
+
+--
+<b>Biggest DEB version? No.</b>
+
+$ ls -1 *.deb | tail -1
+foo_1.13.08_amd64.deb
+
+--
+<b>Biggest DEB version? No.</b>
+
+$ ls -1 *.deb | head -1
+foo_1.13.08-2_amd64.deb
+
+--
+<b>Why?</b>
+
+$ ls -1 *.deb
+foo_1.13.08-2_amd64.deb
+foo_1.13.08-3_amd64.deb
+foo_1.13.08_amd64.deb
+
+--
+<b>Seriously, why?</b>
+
+$ ls -1 *.deb | sort
+foo_1.13.08-2_amd64.deb
+foo_1.13.08-3_amd64.deb
+foo_1.13.08_amd64.deb
+
+--
+<b>Get rid of «_amd64.deb» and... Yes!</b>
+
+$ ls -1 *.deb | sed -e 's,_[a-z0-9]*\.deb,,' | sort
+foo_1.13.08
+foo_1.13.08-2
+foo_1.13.08-3
+
+--
+
+<big>But I want «_amd64.deb» back :'(</big>
+
+--
+
+<big>Perl to the rescue :)</big>
+
+--
+
+$ perl -de1
+  DB<1> x "foo_1.13.08" cmp "foo_1.13.08-2"
+0  '-1'
+  DB<1> x "foo_1.13.08-2" cmp "foo_1.13.08-3"
+0  1
+  DB<1> x "foo_1.13.08-3" cmp "foo_1.13.08-2"
+0  1
+
+--
+
+$ perl -E '
+say +(
+    sort { $b cmp $a }
+    map  { s/_[a-z0-9]+\.deb$//; $_ }
+         <*.deb>
+)[0]
+'
+foo_1.13.08-3
+
+--
+
+<big>But I <b>still</b> want «_amd64.deb» back ;)</big>
+
+--
+
+\#!perl
+\#
+\# Schwartzian Transform
+\#
+@sorted = map  { $_->[0] }
+          sort { $a->[1] <=> $b->[1] }
+          map  { [$_, length($_)] }
+               @unsorted;
+--
+
+$ perl -E '
+my $p = (
+   sort { $b->[0] cmp $a->[0] }
+   map  { s/(_[a-z0-9]+\.deb)$//; [$_,$1] }
+        <*.deb>
+)[0];
+say @$p
+'
+foo_1.13.08-3_amd64.deb
+
+--
+<b>Comparing Debian versions is hard</b>
+
+$ dpkg --compare-versions 1.13.08 lt 1.13.08-2
+$ echo $?
+0
+
+--[text-align=center]
+
+© 2016, Alex Muntada
+CC BY-SA 4.0
