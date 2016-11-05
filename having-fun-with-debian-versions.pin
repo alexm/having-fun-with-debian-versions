@@ -60,7 +60,7 @@ foo_1.13.08-3
 
 <big>Perl to the rescue :)</big>
 
---
+-- [no-markup]
 
 $ perl -de1
   DB<1> x "foo_1.13.08" cmp "foo_1.13.08-2"
@@ -70,7 +70,7 @@ $ perl -de1
   DB<1> x "foo_1.13.08-3" cmp "foo_1.13.08-2"
 0  1
 
---
+-- [no-markup]
 
 $ perl -E '
 say +(
@@ -85,7 +85,7 @@ foo_1.13.08-3
 
 <big>But I <b>still</b> want «_amd64.deb» back ;)</big>
 
---
+-- [no-markup]
 
 \#!perl
 \#
@@ -95,7 +95,7 @@ foo_1.13.08-3
           sort { $a->[1] <=> $b->[1] }
           map  { [$_, length($_)] }
                @unsorted;
---
+-- [no-markup]
 
 $ perl -E '
 my $p = (
