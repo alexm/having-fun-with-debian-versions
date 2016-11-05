@@ -4,9 +4,9 @@
 [transition=text-slide-up]
 [duration=60]
 
-[black]
-[text-color=white]
-[shading-opacity=1.0]
+[white]
+[text-color=black]
+[shading-opacity=0.0]
 [text-align=left]
 
 -- [text-align=center]
