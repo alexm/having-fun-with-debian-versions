@@ -1,10 +1,10 @@
 #!/usr/bin/pinpoint -s
 
-[font=Monospace]
+[font=Monospace 50px]
 [transition=text-slide-up]
 [duration=60]
 
-#[white]
+[black]
 [text-color=white]
 [shading-opacity=1.0]
 [text-align=left]
