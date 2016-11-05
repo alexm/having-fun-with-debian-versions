@@ -114,7 +114,12 @@ $ dpkg --compare-versions 1.13.08 lt 1.13.08-2
 $ echo $?
 0
 
---[text-align=center]
+--
 
 © 2016, Alex Muntada
 CC BY-SA 4.0
+https://github.com/alexm/having-fun-with-debian-versions
+
+Schwartzian Transform code from Wikipedia
+CC BY-SA 3.0
+https://en.wikipedia.org/wiki/Schwartzian_transform
